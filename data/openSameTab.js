@@ -3,11 +3,11 @@
 (function () {'use strict';
 
 self.on('context', function (node) {
-  return (/\/wiki\/|[?]title=/).test(node.href) && decodeURIComponent(node.href).indexOf('Special:BookSources') === -1;
+    return (/\/wiki\/|[?]title=/).test(node.href) && decodeURIComponent(node.href).indexOf('Special:BookSources') === -1;
 });
 self.on('click', function (node, data) {
-  var href = node.href.replace(/(?:(\/)wiki\/|[?]title=)([^?&]*)/, '$1w/index.php?action=edit&title=$2');
-  window.location.href = href;
+    var href = node.href.replace(/(?:(\/)wiki\/|[?]title=)([^?&]*)/, '$1w/index.php?action=edit&title=$2');
+    window.location.href = href;
 });
 
 }());
