@@ -1,0 +1,17 @@
+{
+    "name": "open-wiki-edit-page",
+    "title": "open-wiki-edit-page",
+    "author": "Brett Zamir",
+    "contributors": [],
+    "id": "jid1-90oDxSTqBjuo3Q",
+    "version": "0.1.0",
+    "license": "MIT",
+    "repository": {
+    "type": "git",
+        "url": "https://github.com/brettz9/open-wiki-edit-page.git"
+    },
+    "keywords": [
+        "wiki"
+    ],
+    "description": "Context menu item to translate Mediawiki-style links (as used at Wikipedia) into corresponding edit links (i.e., from /wiki/title or title(title) links into ?actionedit&amp;title(title) links. Only appears when right-clicking such qualifying links.\n\nThere are also now Open ISBN at Amazon links which only appear when right-clicking Special:BookSources/ISBN links. These links will allow a direct visit to the Amazon.com search result page for that ISBN (e.g., when an interesting book is found on Wikipedia)."
+}
