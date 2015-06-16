@@ -3,8 +3,9 @@
     "title": "open-wiki-edit-page",
     "author": "Brett Zamir",
     "contributors": [],
-    "id": "jid0-I2TxZgGZCinjqCrwk4GxEV1zZnk",
-    "version": "0.1.0",
+    "id": "jid0-I2TxZgGZCinjqCrwk4GxEV1zZnk@jetpack",
+    "main": "lib/main",
+    "version": "0.1.1",
     "license": "MIT",
     "repository": {
     "type": "git",
