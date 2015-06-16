@@ -1,7 +1,10 @@
 *.xpi
 *.lnk
+
 .git
 .gitignore
 .jpmignore
+
 doc
 test
+screenshots
