@@ -5,7 +5,8 @@
     "contributors": [],
     "id": "jid0-I2TxZgGZCinjqCrwk4GxEV1zZnk@jetpack",
     "main": "lib/main",
-    "version": "0.1.1",
+    "version": "0.2.0",
+    "permissions": {"private-browsing": true},
     "license": "MIT",
     "repository": {
     "type": "git",
