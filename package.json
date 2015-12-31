@@ -5,13 +5,14 @@
     "contributors": [],
     "id": "jid0-I2TxZgGZCinjqCrwk4GxEV1zZnk@jetpack",
     "main": "lib/main",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "permissions": {"private-browsing": true},
     "license": "MIT",
     "repository": {
     "type": "git",
         "url": "https://github.com/brettz9/open-wiki-edit-page.git"
     },
+    "bugs": "https://github.com/brettz9/open-wiki-edit-page/issues",
     "keywords": [
         "wiki"
     ],

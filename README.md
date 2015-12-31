@@ -6,8 +6,8 @@ to allow right-clicking on a Mediawiki-style link (as used at
 [Wikipedia](https://wikipedia.org)) to be able to
 go directly to its edit page (within the same window or a new tab).
 
-Looks for the pattern `/wiki/title` or `title=(title)` within links to change them into:
-`?action=edit&title=(title)` links.
+Looks for the pattern `/wiki/title` or `title=(title)` within links
+to change them into: `?action=edit&title=(title)` links.
 
 Also provides two "Open ISBN at Amazon" options (leading
 to the same window or current tab) when right-clicking on a link containing
