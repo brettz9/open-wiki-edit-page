@@ -1,0 +1,23 @@
+{
+    "extensionName": {
+      "message": "Open Wiki Edit Page"
+    },
+    "extensionShortName": {
+      "message": "Wiki Edit"
+    },
+    "extensionDescription": {
+      "message": "Context menu to translate Mediawiki-style links (as at Wikipedia) into corresponding edit links. Also open ISBN links into Amazon."
+    },
+    "Open_Wiki_Edit_Page": {
+        "message": "Open Wiki Edit Page"
+    },
+    "Open_Wiki_Edit_Page_new_tab": {
+        "message": "Open Wiki Edit Page (new tab)"
+    },
+    "Open_ISBN_at_Amazon": {
+        "message": "Open ISBN at Amazon"
+    },
+    "Open_ISBN_at_Amazon_new_tab": {
+        "message": "Open ISBN at Amazon (new tab)"
+    }
+}
