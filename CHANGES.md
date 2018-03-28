@@ -2,7 +2,7 @@
 
 ## 0.5.1
 
-- Bundle updated `manifest.json`
+- Bundle version in updated `manifest.json`
 
 ## 0.5.0
 
