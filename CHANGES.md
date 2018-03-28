@@ -1,5 +1,9 @@
 # CHANGES
 
+## ?
+
+- Fix: Fix script to copy minimized form of polyfill file and apply
+
 ## 0.5.2
 
 - Fix: Avoid bundling screenshot file to minimize distribution size
