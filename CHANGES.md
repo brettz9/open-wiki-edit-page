@@ -1,8 +1,12 @@
 # CHANGES
 
+## 0.5.2
+
+- Fix: Avoid bundling screenshot file to minimize distribution size
+
 ## 0.5.1
 
-- Bundle version in updated `manifest.json`
+- Fix: Bundle version in updated `manifest.json`
 
 ## 0.5.0
 
