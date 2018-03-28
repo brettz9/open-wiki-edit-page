@@ -1,5 +1,9 @@
 # CHANGES
 
+## 0.5.1
+
+- Bundle updated `manifest.json`
+
 ## 0.5.0
 
 - Enhancement: Only inject context menu on "/wiki/" and "title=" formatted

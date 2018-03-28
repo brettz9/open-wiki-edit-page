@@ -2,7 +2,7 @@
     "name": "open-wiki-edit-page",
     "author": "Brett Zamir",
     "contributors": [],
-    "version": "0.5.0",
+    "version": "0.5.1",
     "license": "MIT",
     "homepage": "https://github.com/brettz9/open-wiki-edit-page",
     "dependencies": {
