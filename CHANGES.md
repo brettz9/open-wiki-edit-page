@@ -1,5 +1,17 @@
 # CHANGES
 
+## 0.5.0
+
+- Enhancement: Only inject context menu on "/wiki/" and "title=" formatted
+    links
+- Enhancement: For Firefox 60+, besides avoiding injecting context menu items
+    on non-wiki links, also avoid for ISBN items on non-ISBN wiki links or
+    for normal edit items when it is an ISBN link (`all_urls` host permissions
+    are unfortunately needed for this)
+- Linting: Use eslint-config-standard
+- npm: Add ESLint devDeps
+- npm: Specify scripts for running specific versions of Firefox
+
 ## 0.4.0
 
 - Move to webextensions; as per
