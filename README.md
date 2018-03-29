@@ -8,6 +8,8 @@ to allow right-clicking on a Mediawiki-style link (as used at
 [Wikipedia](https://wikipedia.org)) to be able to
 go directly to its edit page (within the same window or a new tab).
 
+![screenshot of usage](./Screen Shot 2018-03-27 at 9.46.46 PM.png)
+
 Looks for the pattern `/wiki/title` or `title=(title)` within links
 to change them into: `?action=edit&title=(title)` links.
 
