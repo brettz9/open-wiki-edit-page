@@ -1,7 +1,9 @@
 # open-wiki-edit-page
 
 A webextensions add-on
-([Firefox](https://addons.mozilla.org/en-US/firefox/addon/open-wiki-edit-page/))
+([Firefox](https://addons.mozilla.org/en-US/firefox/addon/open-wiki-edit-page/)
+or
+[Chrome](https://chrome.google.com/webstore/detail/open-wiki-edit-page/bgkapcgalpheigeojpgjgomopmmdpgaj?hl=en-US))
 to allow right-clicking on a Mediawiki-style link (as used at
 [Wikipedia](https://wikipedia.org)) to be able to
 go directly to its edit page (within the same window or a new tab).
