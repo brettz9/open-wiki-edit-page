@@ -4,6 +4,7 @@
 
 - Fix: Fix script to copy minimized form of polyfill file and apply
 - Fix: Avoid bundling `package.json` and `package-lock.json` to builds
+- Yarn: Add `yarn.lock`
 
 ## 0.5.2
 
