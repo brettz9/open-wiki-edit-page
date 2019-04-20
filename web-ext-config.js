@@ -3,9 +3,12 @@
 module.exports = {
     verbose: true,
     ignoreFiles: [
-        // Files beginning with dot, zip/xpi, node_modules, and web-ext-artifacts auto-ignored
-        'package-lock.json',
+        // Per https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/web-ext_command_reference#--ignore-files_-i
+        // 1. Any file ending in .xpi or .zip is ignored
+        // 2. Any hidden file (one that starts with a dot) is ignored
+        // 3. Any directory named node_modules is ignored
         'package.json',
+        'package-lock.json',
         'screenshots'
     ]
 };
