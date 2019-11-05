@@ -7,7 +7,6 @@
 - Maintenance: Add `.editorconfig`
 - Build: Avoid bundling `package.json` and `package-lock.json` to builds
 - npm: Fix script to copy minimized form of polyfill file and apply
-- Yarn: Add `yarn.lock`
 
 ## 0.5.2
 
