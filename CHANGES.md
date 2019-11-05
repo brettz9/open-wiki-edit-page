@@ -1,5 +1,9 @@
 # CHANGES
 
+## ?
+
+- npm: Add ignore file
+
 ## 0.6.1
 
 - Fix: Bump version in updated `manifest.json`
