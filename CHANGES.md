@@ -1,9 +1,12 @@
 # CHANGES
 
-## ?
+## 0.6.0
 
-- Fix: Fix script to copy minimized form of polyfill file and apply
-- Fix: Avoid bundling `package.json` and `package-lock.json` to builds
+- Fix: Ensure menu removal avoids possible race conditions
+- Linting: Apply latest ash-nazg, using a recommended extension
+- Maintenance: Add `.editorconfig`
+- Build: Avoid bundling `package.json` and `package-lock.json` to builds
+- npm: Fix script to copy minimized form of polyfill file and apply
 - Yarn: Add `yarn.lock`
 
 ## 0.5.2
