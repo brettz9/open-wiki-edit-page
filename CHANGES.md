@@ -1,5 +1,9 @@
 # CHANGES
 
+## 0.6.1
+
+- Fix: Bump version in updated `manifest.json`
+
 ## 0.6.0
 
 - Fix: Ensure menu removal avoids possible race conditions
