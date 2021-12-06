@@ -1,4 +1,4 @@
-/* eslint-env node */
+'use strict';
 
 module.exports = {
   verbose: true,
@@ -8,7 +8,7 @@ module.exports = {
     // 2. Any hidden file (one that starts with a dot) is ignored
     // 3. Any directory named node_modules is ignored
     'package.json',
-    'package-lock.json',
+    'pnpm-lock.yaml',
     'screenshots'
   ]
 };

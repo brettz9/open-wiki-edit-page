@@ -1,17 +1,25 @@
+'use strict';
+
 module.exports = {
-  "extends": ["ash-nazg"],
-  "parserOptions": {
-    "sourceType": "module"
-  },
+  extends: ['ash-nazg/sauron-overrides'],
+  overrides: [
+    {
+      files: 'web-ext-config.js',
+      extends: 'ash-nazg/sauron-node-script-overrides'
+    }
+  ],
   settings: {
     polyfills: [
       'Promise'
     ]
   },
-  "env": {
-    "node": false,
-    "browser": true
+  env: {
+    node: false,
+    browser: true
   },
-  "rules": {
+  rules: {
+    // Disable for now
+    'max-len': 0,
+    'prefer-named-capture-group': 0
   }
 };
