@@ -1,7 +1,8 @@
 # CHANGES
 
-## ?
+## 0.7.0
 
+- feat: support dynamic wildcard targets and find-replacements
 - npm: Add ignore file
 
 ## 0.6.1

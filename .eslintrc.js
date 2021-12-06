@@ -10,6 +10,8 @@ module.exports = {
   ],
   settings: {
     polyfills: [
+      'Array.from',
+      'Array.keys',
       'Promise'
     ]
   },

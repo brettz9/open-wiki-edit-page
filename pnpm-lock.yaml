@@ -19,6 +19,7 @@ specifiers:
   eslint-plugin-sonarjs: ^0.11.0
   eslint-plugin-standard: ^4.1.0
   eslint-plugin-unicorn: ^39.0.0
+  jamilih: ^0.54.0
   webextension-polyfill: ^0.8.0
 
 devDependencies:
@@ -40,6 +41,7 @@ devDependencies:
   eslint-plugin-sonarjs: 0.11.0_eslint@8.4.0
   eslint-plugin-standard: 4.1.0_eslint@8.4.0
   eslint-plugin-unicorn: 39.0.0_eslint@8.4.0
+  jamilih: 0.54.0
   webextension-polyfill: 0.8.0
 
 packages:
@@ -1485,6 +1487,11 @@ packages:
 
   /isexe/2.0.0:
     resolution: {integrity: sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=}
+    dev: true
+
+  /jamilih/0.54.0:
+    resolution: {integrity: sha512-x3rfmZhxocBFbowFbi79C+TtLxe3Bes0ypWly/RJvQ69ZkiLAlwX1kkDeDzpCXpwzXvg53FejVSbOveacB7NvQ==}
+    engines: {node: '>=10'}
     dev: true
 
   /js-tokens/4.0.0:

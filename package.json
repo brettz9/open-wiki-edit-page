@@ -2,7 +2,7 @@
   "name": "open-wiki-edit-page",
   "author": "Brett Zamir",
   "contributors": [],
-  "version": "0.6.1",
+  "version": "0.7.0",
   "license": "MIT",
   "homepage": "https://github.com/brettz9/open-wiki-edit-page",
   "dependencies": {},
@@ -25,6 +25,7 @@
     "eslint-plugin-sonarjs": "^0.11.0",
     "eslint-plugin-standard": "^4.1.0",
     "eslint-plugin-unicorn": "^39.0.0",
+    "jamilih": "^0.54.0",
     "webextension-polyfill": "^0.8.0"
   },
   "scripts": {
@@ -38,7 +39,7 @@
     "eslint": "eslint --ext=js,md,html .",
     "lint": "npm run eslint",
     "copy-polyfill": "cp node_modules/webextension-polyfill/dist/browser-polyfill.min.js polyfills/browser-polyfill.min.js",
-    "copy": "npm run copy-polyfill"
+    "copy": "npm run copy-polyfill && cp node_modules/jamilih/dist/jml-es-noinnerh.js options/jml.js"
   },
   "engines": {},
   "repository": {
