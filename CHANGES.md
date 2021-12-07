@@ -1,5 +1,9 @@
 # CHANGES
 
+## 0.8.0
+
+- Add three more preference slots for regex replacements
+
 ## 0.7.0
 
 - feat: support dynamic wildcard targets and find-replacements

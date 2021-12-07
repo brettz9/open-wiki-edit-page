@@ -1,6 +1,9 @@
 /* eslint-env browser, webextensions -- Has own globals */
 import {jml, body} from './jml.js';
 
+// Todo: Would ideally import this jointly with background
+const prefLength = 7;
+
 /**
  * @param {...string} args
  * @returns {string}
@@ -12,7 +15,7 @@ function _ (...args) {
 document.title = _('extensionName'); // If switch to tabs
 (async () => {
 // Todo: Allow user choice of one or more extra items
-jml('section', await Promise.all([...Array.from({length: 5}).keys()].slice(1).map(async (num) => {
+jml('section', await Promise.all([...Array.from({length: prefLength + 1}).keys()].slice(1).map(async (num) => {
   let wildcard;
   let findRegex;
   let replaceRegex;
