@@ -1,5 +1,6 @@
 # CHANGES
 
+## 0.10.0
 ## 0.9.0
 
 - Bumping version for AMO review
