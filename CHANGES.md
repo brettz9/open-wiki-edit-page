@@ -1,5 +1,9 @@
 # CHANGES
 
+## 0.9.0
+
+- Bumping version for AMO review
+
 ## 0.8.0
 
 - Add three more preference slots for regex replacements
