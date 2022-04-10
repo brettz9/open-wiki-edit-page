@@ -1,5 +1,6 @@
 /* eslint-env webextensions -- Has own globals */
-/* eslint-disable import/unambiguous -- No need for modules */
+
+import './polyfills/browser-polyfill.min.js';
 
 /**
  * @param {...any} args
@@ -12,7 +13,12 @@ function _ (...args) {
 // Todo: Would ideally import this jointly with options
 const prefLength = 7;
 
-const menuIDs = [];
+const menuIDs = [
+  'Open_Wiki_Edit_Page',
+  'Open_Wiki_Edit_Page_new_tab',
+  'Open_ISBN_at_Amazon',
+  'Open_ISBN_at_Amazon_new_tab'
+];
 
 /**
  * @returns {Promise<void>}
@@ -35,33 +41,44 @@ async function updateContextMenus () {
       contexts: ['link']
     };
 
-    const menuID = browser.contextMenus.create(opts);
-    menuIDs.push(menuID);
+    try {
+      // May not throw
+      browser.contextMenus.create(opts);
+    } catch (err) {
+      // Can err if given bad user pattern
+      // eslint-disable-next-line no-console -- Debugging
+      console.log('Erred creating context menu');
+    }
   }
-
-  await Promise.all(
-    menuIDs.map((menuID) => {
-      return browser.contextMenus.remove(menuID);
-    })
-  );
 
   const prefs = await browser.storage.local.get(null);
 
-  const targetUrlPatterns = [...Array.from({length: prefLength + 1}).keys()].slice(1).map((num) => {
+  const targetUrlPatterns = [
+    ...Array.from({length: prefLength + 1}).keys()
+  ].slice(1).map((num) => {
     return prefs['pref_open_wiki_edit_wildcard' + num];
-  }).filter((item) => {
-    return item;
-  });
+  }).filter(Boolean);
   // const {separateContextMenus} = await browser.storage.local.get('separateContextMenus');
-  addContextMenu({type: 'Open_Wiki_Edit_Page'});
-  addContextMenu({type: 'Open_Wiki_Edit_Page_new_tab'});
-  addContextMenu({type: 'Open_ISBN_at_Amazon'});
-  addContextMenu({type: 'Open_ISBN_at_Amazon_new_tab'});
+
+  await Promise.all(
+    menuIDs.map(async (menuID) => {
+      try {
+        return await browser.contextMenus.remove(menuID);
+      } catch (err) {
+        // Ignore
+        return null;
+      }
+    })
+  );
+  menuIDs.forEach((type) => {
+    addContextMenu({type});
+  });
 }
 
 updateContextMenus();
 
-// Todo: Remove the first condition once Firefox 60+ is widespread
+// Todo: Remove the first condition once Firefox 60+ is widespread and works
+//         in Chrome?
 browser.contextMenus.onShown && browser.contextMenus.onShown.addListener(async ({linkUrl} /* , tab */) => {
   // const {linkUrl} = info;
   // console.log('linkUrl', linkUrl);
@@ -83,10 +100,7 @@ browser.contextMenus.onShown && browser.contextMenus.onShown.addListener(async (
 });
 
 browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) => {
-  if (![
-    'Open_Wiki_Edit_Page', 'Open_Wiki_Edit_Page_new_tab',
-    'Open_ISBN_at_Amazon', 'Open_ISBN_at_Amazon_new_tab'
-  ].includes(menuItemId)) {
+  if (!menuIDs.includes(menuItemId)) {
     return;
   }
 
@@ -94,22 +108,38 @@ browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) =>
 
   const prefs = await browser.storage.local.get(null);
 
-  let hasCustom = false;
-  [...Array.from({length: prefLength + 1}).keys()].slice(1).forEach((num) => {
-    const findRegex = prefs['pref_open_wiki_edit_find_regex' + num];
-    if (findRegex) {
-      hasCustom = true;
-      const replace = prefs['pref_open_wiki_edit_replace_regex' + num];
-      linkUrl = linkUrl.replace(new RegExp(findRegex, 'u'), replace);
-    }
-  });
+  let hasCustom;
+  if (isEditableWikiPage) {
+    hasCustom = [
+      ...Array.from({length: prefLength + 1}).keys()
+    ].slice(1).some((num) => {
+      const findRegex = prefs['pref_open_wiki_edit_find_regex' + num];
+      if (findRegex) {
+        let regex;
+        try {
+          regex = new RegExp(findRegex, 'u');
+        } catch (err) {
+          // Todo: Should instead do client-side validation in the options;
+          //   ideally also the wildcards too which can err
+          // eslint-disable-next-line no-console -- Debugging
+          console.log('Error in regex');
+          return false;
+        }
+        const hasMatch = regex.test(linkUrl);
+        const replace = prefs['pref_open_wiki_edit_replace_regex' + num];
+        linkUrl = linkUrl.replace(regex, replace);
+        return hasMatch;
+      }
+      return false;
+    });
+  }
 
   const newURL = isEditableWikiPage
-    ? hasCustom
+    ? (hasCustom
       ? linkUrl
-      : linkUrl.replace(/(?:(\/)wiki\/|[?]title=)([^?&]*)/u, '$1w/index.php?action=edit&title=$2')
+      : linkUrl.replace(/(?:(\/)wiki\/|[?&]title=)([^?&]*)/u, '$1w/index.php?action=edit&title=$2'))
     : linkUrl.replace(
-      /^.*?(?:(\/)wiki\/|[?]title=)Special:BookSources\/([^?&]*)/u,
+      /^.*?(?:(\/)wiki\/|[?&]title=)Special:BookSources\/([^?&]*)/u,
       'http://www.amazon.com/gp/search/?ie=UTF8&Adv-Srch-Books-Submit.y=0' +
                 '&sort=relevanceexprank&search-alias=stripbooks&tag=wiki-addon-20' +
                 '&linkCode=ur2&unfiltered=1&camp=1789&Adv-Srch-Books-Submit.x=0' +

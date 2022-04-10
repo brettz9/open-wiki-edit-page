@@ -15,7 +15,11 @@ function _ (...args) {
 document.title = _('extensionName'); // If switch to tabs
 (async () => {
 // Todo: Allow user choice of one or more extra items
-jml('section', await Promise.all([...Array.from({length: prefLength + 1}).keys()].slice(1).map(async (num) => {
+
+// Retrieve async, but wait to use until after in proper order
+const info = await Promise.all([
+  ...Array.from({length: prefLength + 1}).keys()
+].slice(1).map(async (num) => {
   let wildcard;
   let findRegex;
   let replaceRegex;
@@ -26,6 +30,10 @@ jml('section', await Promise.all([...Array.from({length: prefLength + 1}).keys()
       ['pref_open_wiki_edit_replace_regex' + num]: replaceRegex
     } = await browser.storage.local.get(null));
   } catch (err) {}
+  return {num, wildcard, findRegex, replaceRegex};
+}));
+
+jml('section', info.map(({num, wildcard, findRegex, replaceRegex}) => {
   return ['fieldset', [
     ['legend', {class: 'addon-description'}, [
       _('pref_open_wiki_edit_find_replace', String(num))
@@ -58,7 +66,7 @@ jml('section', await Promise.all([...Array.from({length: prefLength + 1}).keys()
       ' ',
       ['input', {
         value: findRegex || '',
-        placeholder: '(?:(/)wiki/|[?]title=)([^?&]*)',
+        placeholder: '(?:(/)wiki/|[?&]title=)([^?&]*)',
         size: 30,
         $on: {
           async change ({target}) {
@@ -78,7 +86,7 @@ jml('section', await Promise.all([...Array.from({length: prefLength + 1}).keys()
       ['input', {
         value: replaceRegex || '',
         placeholder: '$1w/index.php?action=edit&title=$2',
-        size: 30,
+        size: 40,
         $on: {
           async change ({target}) {
             await browser.storage.local.set({
@@ -91,5 +99,5 @@ jml('section', await Promise.all([...Array.from({length: prefLength + 1}).keys()
       }]
     ]]
   ]];
-})), body);
+}), body);
 })();

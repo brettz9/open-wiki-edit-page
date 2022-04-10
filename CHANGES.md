@@ -1,5 +1,9 @@
 # CHANGES
 
+## 0.11.0
+
+- fix: avoid potentially problematic multiple replacements per URL
+
 ## 0.10.0
 ## 0.9.0
 
