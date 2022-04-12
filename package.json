@@ -29,6 +29,7 @@
     "webextension-polyfill": "^0.9.0"
   },
   "scripts": {
+    "webext-lint": "web-ext lint",
     "webext-path": "npm run eslint && web-ext run --browser-console -f /Applications/Firefox.app",
     "webext": "npm run eslint && web-ext run --browser-console -f firefox",
     "webext-default": "npm run eslint && web-ext run --browser-console",
