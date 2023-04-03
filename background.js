@@ -75,7 +75,7 @@ async function updateContextMenus () {
   });
 }
 
-updateContextMenus();
+browser.runtime.onInstalled.addListener(updateContextMenus);
 
 // Todo: Remove the first condition once Firefox 60+ is widespread and works
 //         in Chrome?

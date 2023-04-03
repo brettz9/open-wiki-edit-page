@@ -2,6 +2,9 @@
 
 module.exports = {
   extends: ['ash-nazg/sauron-overrides'],
+  parserOptions: {
+    ecmaVersion: 2022
+  },
   overrides: [
     {
       files: 'web-ext-config.js',

@@ -13,7 +13,7 @@ function _ (...args) {
 }
 
 document.title = _('extensionName'); // If switch to tabs
-(async () => {
+
 // Todo: Allow user choice of one or more extra items
 
 // Retrieve async, but wait to use until after in proper order
@@ -100,4 +100,3 @@ jml('section', info.map(({num, wildcard, findRegex, replaceRegex}) => {
     ]]
   ]];
 }), body);
-})();
