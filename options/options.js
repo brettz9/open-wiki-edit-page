@@ -1,4 +1,3 @@
-/* eslint-env browser, webextensions -- Has own globals */
 import {jml, body} from './jml.js';
 
 // Todo: Would ideally import this jointly with background

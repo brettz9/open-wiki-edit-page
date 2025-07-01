@@ -1,5 +1,3 @@
-/* eslint-env webextensions -- Has own globals */
-
 import './polyfills/browser-polyfill.min.js';
 
 /**
@@ -79,25 +77,27 @@ browser.runtime.onInstalled.addListener(updateContextMenus);
 
 // Todo: Remove the first condition once Firefox 60+ is widespread and works
 //         in Chrome?
-browser.contextMenus.onShown && browser.contextMenus.onShown.addListener(async ({linkUrl} /* , tab */) => {
-  // const {linkUrl} = info;
-  // console.log('linkUrl', linkUrl);
-  if (!linkUrl) {
-    return;
-  }
-  const isBookSource = decodeURIComponent(linkUrl).includes('Special:BookSources');
-  await updateContextMenus();
-  await (isBookSource
-    ? Promise.all([
-      browser.contextMenus.remove('Open_Wiki_Edit_Page'),
-      browser.contextMenus.remove('Open_Wiki_Edit_Page_new_tab')
-    ])
-    : Promise.all([
-      browser.contextMenus.remove('Open_ISBN_at_Amazon'),
-      browser.contextMenus.remove('Open_ISBN_at_Amazon_new_tab')
-    ]));
-  browser.contextMenus.refresh();
-});
+if (browser.contextMenus.onShown) {
+  browser.contextMenus.onShown.addListener(async ({linkUrl} /* , tab */) => {
+    // const {linkUrl} = info;
+    // console.log('linkUrl', linkUrl);
+    if (!linkUrl) {
+      return;
+    }
+    const isBookSource = decodeURIComponent(linkUrl).includes('Special:BookSources');
+    await updateContextMenus();
+    await (isBookSource
+      ? Promise.all([
+        browser.contextMenus.remove('Open_Wiki_Edit_Page'),
+        browser.contextMenus.remove('Open_Wiki_Edit_Page_new_tab')
+      ])
+      : Promise.all([
+        browser.contextMenus.remove('Open_ISBN_at_Amazon'),
+        browser.contextMenus.remove('Open_ISBN_at_Amazon_new_tab')
+      ]));
+    browser.contextMenus.refresh();
+  });
+}
 
 browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) => {
   if (!menuIDs.includes(menuItemId)) {
@@ -117,7 +117,7 @@ browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) =>
       if (findRegex) {
         let regex;
         try {
-          regex = new RegExp(findRegex, 'u');
+          regex = new RegExp(findRegex, 'v');
         } catch (err) {
           // Todo: Should instead do client-side validation in the options;
           //   ideally also the wildcards too which can err
@@ -137,10 +137,10 @@ browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) =>
   const newURL = isEditableWikiPage
     ? (hasCustom
       ? linkUrl
-      : linkUrl.replace(/(?:(\/)wiki\/|[?&]title=)([^?&]*)/u, '$1w/index.php?action=edit&title=$2'))
+      : linkUrl.replace(/(?:(\/)wiki\/|[?&]title=)([^?&]*)/v, '$1w/index.php?action=edit&title=$2'))
     : linkUrl.replace(
-      /^.*?(?:(\/)wiki\/|[?&]title=)Special:BookSources\/([^?&]*)/u,
-      'http://www.amazon.com/gp/search/?ie=UTF8&Adv-Srch-Books-Submit.y=0' +
+      /^.*?(?:(\/)wiki\/|[?&]title=)Special:BookSources\/([^?&]*)/v,
+      'https://www.amazon.com/gp/search/?ie=UTF8&Adv-Srch-Books-Submit.y=0' +
                 '&sort=relevanceexprank&search-alias=stripbooks&tag=wiki-addon-20' +
                 '&linkCode=ur2&unfiltered=1&camp=1789&Adv-Srch-Books-Submit.x=0' +
                 '&field-dateop=&creative=390957&field-isbn=$2'
