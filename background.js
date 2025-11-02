@@ -1,11 +1,15 @@
 import './polyfills/browser-polyfill.min.js';
 
 /**
- * @param {...any} args
+ * @import {Menus} from 'webextension-polyfill';
+ */
+
+/**
+ * @param {string} arg
  * @returns {string}
  */
-function _ (...args) {
-  return browser.i18n.getMessage(...args);
+function _ (arg) {
+  return browser.i18n.getMessage(arg);
 }
 
 // Todo: Would ideally import this jointly with options
@@ -23,7 +27,7 @@ const menuIDs = [
  */
 async function updateContextMenus () {
   /**
-   * @param {PlainObject} root0
+   * @param {object} root0
    * @param {string} root0.type
    * @returns {void}
    */
@@ -36,7 +40,7 @@ async function updateContextMenus () {
         ? targetUrlPatterns
         : ['*://*/wiki/*', '*://*/*?title=*', '*://*/*&title=*'],
       title: _(type),
-      contexts: ['link']
+      contexts: /** @type {Menus.ContextType[]} */ (['link'])
     };
 
     try {
@@ -54,7 +58,9 @@ async function updateContextMenus () {
   const targetUrlPatterns = [
     ...Array.from({length: prefLength + 1}).keys()
   ].slice(1).map((num) => {
-    return prefs['pref_open_wiki_edit_wildcard' + num];
+    return /** @type {string} */ (
+      prefs['pref_open_wiki_edit_wildcard' + num]
+    );
   }).filter(Boolean);
   // const {separateContextMenus} = await browser.storage.local.get('separateContextMenus');
 
@@ -99,14 +105,20 @@ if (browser.contextMenus.onShown) {
   });
 }
 
-browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) => {
+browser.contextMenus.onClicked.addListener(async (info, tab) => {
+  // eslint-disable-next-line prefer-destructuring -- TS
+  let linkUrl = /** @type {string} */ (info.linkUrl);
+  // eslint-disable-next-line prefer-destructuring -- TS
+  const menuItemId = /** @type {string} */ (info.menuItemId);
   if (!menuIDs.includes(menuItemId)) {
     return;
   }
 
   const isEditableWikiPage = menuItemId.startsWith('Open_Wiki_Edit_Page');
 
-  const prefs = await browser.storage.local.get(null);
+  const prefs = /** @type {Record<string, string>} */ (
+    await browser.storage.local.get(null)
+  );
 
   let hasCustom;
   if (isEditableWikiPage) {
@@ -137,8 +149,10 @@ browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) =>
   const newURL = isEditableWikiPage
     ? (hasCustom
       ? linkUrl
+      // @ts-expect-error https://github.com/microsoft/TypeScript/issues/62707
       : linkUrl.replace(/(?:(\/)wiki\/|[?&]title=)([^?&]*)/v, '$1w/index.php?action=edit&title=$2'))
     : linkUrl.replace(
+      // @ts-expect-error https://github.com/microsoft/TypeScript/issues/62707
       /^.*?(?:(\/)wiki\/|[?&]title=)Special:BookSources\/([^?&]*)/v,
       'https://www.amazon.com/gp/search/?ie=UTF8&Adv-Srch-Books-Submit.y=0' +
                 '&sort=relevanceexprank&search-alias=stripbooks&tag=wiki-addon-20' +
@@ -149,11 +163,11 @@ browser.contextMenus.onClicked.addListener(async ({linkUrl, menuItemId}, tab) =>
   await (
     menuItemId.endsWith('new_tab')
       ? browser.tabs.create({
-        openerTabId: tab.id, // Of what use is there to indicate the opener like this?
+        openerTabId: tab?.id, // Of what use is there to indicate the opener like this?
         active: true,
         url: newURL
       })
-      : browser.tabs.update(tab.id, {
+      : browser.tabs.update(tab?.id, {
         url: newURL
       })
   );

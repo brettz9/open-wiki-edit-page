@@ -4,11 +4,12 @@ import {jml, body} from './jml.js';
 const prefLength = 7;
 
 /**
- * @param {...string} args
+ * @param {string} arg
+ * @param {string} [info]
  * @returns {string}
  */
-function _ (...args) {
-  return browser.i18n.getMessage(...args);
+function _ (arg, info) {
+  return browser.i18n.getMessage(arg, info);
 }
 
 document.title = _('extensionName'); // If switch to tabs
@@ -51,7 +52,8 @@ jml('section', info.map(({num, wildcard, findRegex, replaceRegex}) => {
         $on: {
           async change ({target}) {
             await browser.storage.local.set({
-              ['pref_open_wiki_edit_wildcard' + num]: target.value
+              ['pref_open_wiki_edit_wildcard' + num]:
+              /** @type {HTMLInputElement} */ (target).value
             });
             // const backgroundPage = browser.extension.getBackgroundPage();
             // backgroundPage.updateContextMenus();
@@ -70,7 +72,8 @@ jml('section', info.map(({num, wildcard, findRegex, replaceRegex}) => {
         $on: {
           async change ({target}) {
             await browser.storage.local.set({
-              ['pref_open_wiki_edit_find_regex' + num]: target.value
+              ['pref_open_wiki_edit_find_regex' + num]:
+              /** @type {HTMLInputElement} */ (target).value
             });
             // const backgroundPage = browser.extension.getBackgroundPage();
             // backgroundPage.updateContextMenus();
@@ -89,7 +92,8 @@ jml('section', info.map(({num, wildcard, findRegex, replaceRegex}) => {
         $on: {
           async change ({target}) {
             await browser.storage.local.set({
-              ['pref_open_wiki_edit_replace_regex' + num]: target.value
+              ['pref_open_wiki_edit_replace_regex' + num]:
+              /** @type {HTMLInputElement} */ (target).value
             });
             // const backgroundPage = browser.extension.getBackgroundPage();
             // backgroundPage.updateContextMenus();
